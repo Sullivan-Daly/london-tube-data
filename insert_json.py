@@ -15,19 +15,19 @@ with open('train-network.json', encoding="utf8") as json_file:
     data = json.load(json_file)
 
 for current in data['stations']: 
-    sqlArgument = '("'+ current["idStation"] +'", "' + current["stationName"] + '", ' + str(current["longitude"]) + ', ' + str(current["latitude"]) + ');'
+    sqlArgument = '("'+ current["id"] +'", "' + current["name"] + '", ' + str(current["longitude"]) + ', ' + str(current["latitude"]) + ');'
     sqlFormula = 'INSERT INTO station (idStation, stationName, longitude, latitude) VALUES' + sqlArgument 
     print(sqlFormula)
     mycursor.execute(sqlFormula)
 
 for current in data['lines']:
-    sqlArgument = '("'+ current["lineName"] + '");'
+    sqlArgument = '("'+ current["name"] + '");'
     sqlFormula = 'INSERT INTO line (lineName) VALUES' + sqlArgument
     print(sqlFormula)
     mycursor.execute(sqlFormula)
 
 for current in data['lines']:
-    query = ('SELECT idLine FROM line WHERE lineName = "' + current["lineName"] +'"')
+    query = ('SELECT idLine FROM line WHERE lineName = "' + current["name"] +'"')
     cursor = mydb.cursor()
     idLine = 0
     cursor.execute(query)
